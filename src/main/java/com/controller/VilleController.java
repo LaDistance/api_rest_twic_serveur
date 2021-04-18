@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,5 +53,26 @@ class VilleController {
 		System.out.println("Appel GET : get Ville, code postal: "+ codePostal);
 		return villeService.getVilleByCodePostal(codePostal);
 	}
-	// TODO : create, updates, delete
+	
+	@RequestMapping(value = "/ville", method = RequestMethod.POST)
+	public void createVille(@RequestBody Ville ville) {
+		System.out.println("Appel CREATE : "+ ville);
+		villeService.createVille(ville);
+	}
+	
+	@RequestMapping(value = "/ville/{codeInsee}", method = RequestMethod.PUT)
+	public void putVille(@PathVariable int codeInsee, @RequestBody Ville ville) {
+		System.out.println("Appel PUT sur la ville de code INSEE : "+ codeInsee + ", nouvelle ville : " + ville);
+		villeService.updateVilleNom(codeInsee, ville.getNom());
+		villeService.updateVilleCodePostal(codeInsee, ville.getCodePostal());
+		villeService.updateVilleLatitude(codeInsee, ville.getLatitude());
+		villeService.updateVilleLongitude(codeInsee, ville.getLongitude());
+		villeService.updateVilleLibelleAcheminement(codeInsee, ville.getLibelleAcheminement());
+	}
+	
+	@RequestMapping(value = "/ville/{codeInsee", method = RequestMethod.DELETE)
+	public void deleteVille(@PathVariable int codeInsee) {
+		System.out.println("Appel DELETE sur la ville de code INSEE : "+ codeInsee);
+		villeService.deleteVille(codeInsee);
+	}
 }

@@ -82,7 +82,11 @@ public class VilleBLOImpl implements VilleBLO {
 		villeDAO.updateVilleLongitude(codeInsee, latitude);
 		System.out.println("Ville updated, code INSEE : " + codeInsee + ", nouvelle latitude : " + latitude);
 	}
-
+	
+	public void updateVilleLibelleAcheminement(int codeInsee, String libelle) throws VilleException{
+		villeDAO.updateVilleLibelleAcheminement(codeInsee, libelle);
+		System.out.println("Ville updated, code INSEE : " + codeInsee + ", nouveau libelle : " + libelle);
+	}
 	@Override
 	public void deleteVille(int codeInsee) throws VilleException {
 		villeDAO.deleteVille(codeInsee);

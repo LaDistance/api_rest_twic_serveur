@@ -25,6 +25,7 @@ public class VilleDAOImpl implements VilleDAO {
     private static final String SQL_SET_CODE_POSTAL = "UPDATE ville_france SET Code_postal = ? WHERE Code_commune_INSEE = ?";
     private static final String SQL_SET_LONGITUDE = "UPDATE ville_france SET Longitude = ? WHERE Code_commune_INSEE = ?";
     private static final String SQL_SET_LATITUDE = "UPDATE ville_france SET Latitude = ? WHERE Code_commune_INSEE = ?";
+    private static final String SQL_SET_LIBELLE = "UPDATE ville_france SET Libelle_acheminement = ? WHERE Code_commune_INSEE = ?";
 	
 	public VilleDAOImpl() {
 	}
@@ -248,6 +249,27 @@ public class VilleDAOImpl implements VilleDAO {
             preparedStatement = initialisationRequetePreparee( connexion, SQL_SET_LATITUDE, true,
             		codeInsee,
             		latitude);
+            int statut = preparedStatement.executeUpdate();
+            if ( statut == 0 ) {
+                throw new DAOException( "Échec de l'update de la ville, aucune ligne modifiée dans la table." );
+            }
+        } catch ( SQLException e ) {
+            throw new DAOException( e );
+        } finally {
+            fermeturesSilencieuses( preparedStatement, connexion );
+        }
+	}
+
+	@Override
+	public void updateVilleLibelleAcheminement(int codeInsee, String libelle) {
+		Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connexion = DAOFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee( connexion, SQL_SET_LIBELLE, true,
+            		codeInsee,
+            		libelle);
             int statut = preparedStatement.executeUpdate();
             if ( statut == 0 ) {
                 throw new DAOException( "Échec de l'update de la ville, aucune ligne modifiée dans la table." );

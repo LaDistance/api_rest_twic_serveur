@@ -16,4 +16,5 @@ public interface VilleDAO {
 	public void updateVilleLongitude(int codeInsee, String longitude);
 	public void updateVilleLatitude(int codeInsee, String latitude);
 	public void deleteVille(int codeInsee);
+	public void updateVilleLibelleAcheminement(int codeInsee, String libelle);
 }

@@ -15,5 +15,6 @@ public interface VilleBLO {
 	public void updateVilleCodePostal(int codeInsee, int codePostal)throws VilleException;
 	public void updateVilleLongitude(int codeInsee, String longitude)throws VilleException;
 	public void updateVilleLatitude(int codeInsee, String latitude)throws VilleException;
+	public void updateVilleLibelleAcheminement(int codeInsee, String libelle) throws VilleException;
 	public void deleteVille(int codeInsee)throws VilleException;
 }
