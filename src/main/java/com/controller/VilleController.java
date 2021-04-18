@@ -28,8 +28,6 @@ class VilleController {
 		
 		ArrayList<Ville> villes = villeService.getAll();
 		
-		
-		
 		return villes;
 	}
 	

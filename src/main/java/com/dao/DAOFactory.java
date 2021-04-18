@@ -66,9 +66,10 @@ public class DAOFactory {
         return instance;
     }
 
-    /* Méthode chargée de fournir une connexion à la base de données */
-    /* package */Connection getConnection() throws SQLException {
-        return DriverManager.getConnection( url, username, password );
+
+    
+    public static Connection getConnection() throws SQLException{
+    	return DriverManager.getConnection("jdbc:mysql://localhost:3306/api_rest_twic", "root", "");
     }
 
     /*
@@ -76,6 +77,6 @@ public class DAOFactory {
      * (uniquement deux dans le cadre de ce TP)
      */
     public VilleDAO getVilleDao() {
-        return new VilleDAOImpl( this );
+        return new VilleDAOImpl();
     }
 }

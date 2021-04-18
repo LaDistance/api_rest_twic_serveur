@@ -1,7 +1,6 @@
 package com.dao;
 
 import static com.dao.DAOUtilitaire.fermeturesSilencieuses;
-import static com.dao.DAOUtilitaire.fermeturesSilencieuses;
 import static com.dao.DAOUtilitaire.initialisationRequetePreparee;
 
 import java.sql.Connection;
@@ -13,27 +12,23 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Repository;
 
 import com.dto.Ville;
-import com.dao.DAOException;
-import com.dao.DAOFactory;
 
 @Repository
 public class VilleDAOImpl implements VilleDAO {
-	private static final String SQL_SELECT = "SELECT * FROM Ville ORDER BY id";
-	private static final String SQL_SELECT_BY_INSEE = "SELECT * FROM Ville WHERE Code_commune_INSEE = ?";
-	private static final String SQL_SELECT_BY_NOM = "SELECT * FROM Ville WHERE Nom_commune = ?";
-	private static final String SQL_SELECT_BY_CODE_POSTAL = "SELECT * FROM Ville WHERE Code_postal = ?";
-	private static final String SQL_INSERT        = "INSERT INTO Ville (Code_commune_INSEE, Nom_commune, Code_postal, Libelle_acheminement, Ligne_5, Latitude, Longitude) VALUES (?, ?, ?, ?, '', ?, ?)";
-    private static final String SQL_DELETE		  = "DELETE FROM Ville WHERE Code_commune_INSEE = ?";
-    private static final String SQL_SET_NOM = "UPDATE Ville SET Nom_commune = ? WHERE Code_commune_INSEE = ?";
-    private static final String SQL_SET_CODE_POSTAL = "UPDATE Ville SET Code_postal = ? WHERE Code_commune_INSEE = ?";
-    private static final String SQL_SET_LONGITUDE = "UPDATE Ville SET Longitude = ? WHERE Code_commune_INSEE = ?";
-    private static final String SQL_SET_LATITUDE = "UPDATE Ville SET Latitude = ? WHERE Code_commune_INSEE = ?";
-	private DAOFactory daoFactory;
+	private static final String SQL_SELECT = "SELECT * FROM ville_france ORDER BY Code_commune_INSEE";
+	private static final String SQL_SELECT_BY_INSEE = "SELECT * FROM ville_france WHERE Code_commune_INSEE = ?";
+	private static final String SQL_SELECT_BY_NOM = "SELECT * FROM ville_france WHERE Nom_commune = ?";
+	private static final String SQL_SELECT_BY_CODE_POSTAL = "SELECT * FROM ville_france WHERE Code_postal = ?";
+	private static final String SQL_INSERT        = "INSERT INTO ville_france (Code_commune_INSEE, Nom_commune, Code_postal, Libelle_acheminement, Ligne_5, Latitude, Longitude) VALUES (?, ?, ?, ?, '', ?, ?)";
+    private static final String SQL_DELETE		  = "DELETE FROM ville_france WHERE Code_commune_INSEE = ?";
+    private static final String SQL_SET_NOM = "UPDATE ville_france SET Nom_commune = ? WHERE Code_commune_INSEE = ?";
+    private static final String SQL_SET_CODE_POSTAL = "UPDATE ville_france SET Code_postal = ? WHERE Code_commune_INSEE = ?";
+    private static final String SQL_SET_LONGITUDE = "UPDATE ville_france SET Longitude = ? WHERE Code_commune_INSEE = ?";
+    private static final String SQL_SET_LATITUDE = "UPDATE ville_france SET Latitude = ? WHERE Code_commune_INSEE = ?";
 	
-	VilleDAOImpl( DAOFactory daoFactory ) {
-        this.daoFactory = daoFactory;
-    }
-
+	public VilleDAOImpl() {
+	}
+	
 	@Override
 	public ArrayList<Ville> getAll() {
 		Connection connection = null;
@@ -42,7 +37,7 @@ public class VilleDAOImpl implements VilleDAO {
         ArrayList<Ville> villes = new ArrayList<Ville>();
 
         try {
-            connection = daoFactory.getConnection();
+            connection = DAOFactory.getConnection();
             preparedStatement = connection.prepareStatement( SQL_SELECT );
             resultSet = preparedStatement.executeQuery();
             while ( resultSet.next() ) {
@@ -61,6 +56,7 @@ public class VilleDAOImpl implements VilleDAO {
 		 Ville ville = new Ville();
 		 ville.setCodeInsee(resultSet.getInt("Code_commune_INSEE"));
 		 ville.setNom(resultSet.getString("Nom_commune"));
+		 ville.setLibelleAcheminement(resultSet.getString("Libelle_acheminement"));
 		 ville.setCodePostal(resultSet.getInt("Code_postal"));
 		 ville.setLatitude(resultSet.getString("Latitude"));
 		 ville.setLongitude(resultSet.getString("Longitude"));
@@ -77,7 +73,7 @@ public class VilleDAOImpl implements VilleDAO {
         ArrayList<Ville> villes = new ArrayList<Ville>();
 
         try {
-            connection = daoFactory.getConnection();
+            connection = DAOFactory.getConnection();
             preparedStatement = connection.prepareStatement( SQL_SELECT_BY_INSEE );
             preparedStatement.setInt(1, codeInsee);
             resultSet = preparedStatement.executeQuery();
@@ -100,7 +96,7 @@ public class VilleDAOImpl implements VilleDAO {
         ArrayList<Ville> villes = new ArrayList<Ville>();
 
         try {
-            connection = daoFactory.getConnection();
+            connection = DAOFactory.getConnection();
             preparedStatement = connection.prepareStatement( SQL_SELECT_BY_NOM );
             preparedStatement.setString(1, nom);
             resultSet = preparedStatement.executeQuery();
@@ -122,7 +118,7 @@ public class VilleDAOImpl implements VilleDAO {
         ArrayList<Ville> villes = new ArrayList<Ville>();
 
         try {
-            connection = daoFactory.getConnection();
+            connection = DAOFactory.getConnection();
             preparedStatement = connection.prepareStatement( SQL_SELECT_BY_CODE_POSTAL );
             preparedStatement.setInt(1, codePostal);
             resultSet = preparedStatement.executeQuery();
@@ -143,7 +139,7 @@ public class VilleDAOImpl implements VilleDAO {
         PreparedStatement preparedStatement = null;
 
         try {
-            connexion = daoFactory.getConnection();
+            connexion = DAOFactory.getConnection();
             preparedStatement = initialisationRequetePreparee( connexion, SQL_INSERT, true,
             		ville.getCodeInsee(), ville.getNom(),
             		ville.getCodePostal(), ville.getLibelleAcheminement(),
@@ -165,7 +161,7 @@ public class VilleDAOImpl implements VilleDAO {
         PreparedStatement preparedStatement = null;
 
         try {
-            connexion = daoFactory.getConnection();
+            connexion = DAOFactory.getConnection();
             preparedStatement = initialisationRequetePreparee( connexion, SQL_SET_NOM, true,
             		codeInsee,
             		nom);
@@ -186,7 +182,7 @@ public class VilleDAOImpl implements VilleDAO {
         PreparedStatement preparedStatement = null;
 
         try {
-            connexion = daoFactory.getConnection();
+            connexion = DAOFactory.getConnection();
             preparedStatement = initialisationRequetePreparee( connexion, SQL_DELETE, true,
             		codeInsee);
             int statut = preparedStatement.executeUpdate();
@@ -206,7 +202,7 @@ public class VilleDAOImpl implements VilleDAO {
         PreparedStatement preparedStatement = null;
 
         try {
-            connexion = daoFactory.getConnection();
+            connexion = DAOFactory.getConnection();
             preparedStatement = initialisationRequetePreparee( connexion, SQL_SET_CODE_POSTAL, true,
             		codeInsee,
             		codePostal);
@@ -227,7 +223,7 @@ public class VilleDAOImpl implements VilleDAO {
         PreparedStatement preparedStatement = null;
 
         try {
-            connexion = daoFactory.getConnection();
+            connexion = DAOFactory.getConnection();
             preparedStatement = initialisationRequetePreparee( connexion, SQL_SET_LONGITUDE, true,
             		codeInsee,
             		longitude);
@@ -248,7 +244,7 @@ public class VilleDAOImpl implements VilleDAO {
         PreparedStatement preparedStatement = null;
 
         try {
-            connexion = daoFactory.getConnection();
+            connexion = DAOFactory.getConnection();
             preparedStatement = initialisationRequetePreparee( connexion, SQL_SET_LATITUDE, true,
             		codeInsee,
             		latitude);

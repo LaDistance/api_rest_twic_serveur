@@ -29,17 +29,16 @@ public class VilleBLOImpl implements VilleBLO {
 		ArrayList<Ville> listVille;
 
 		listVille = villeDAO.getVille(codeInsee);
-		System.out.println("Ville récupérée : " + listVille.get(0));
+		// System.out.println("Ville récupérée : " + listVille.get(0));
 
 		return listVille;
 	}
 
 	@Override
 	public ArrayList<Ville> getVilleByNom(String nom) throws VilleException {
-		ArrayList<Ville> listVille;
-
+		ArrayList<Ville> listVille;	
 		listVille = villeDAO.getVilleByNom(nom);
-		System.out.println("Ville récupérée : " + listVille.get(0));
+		System.out.println("Ville récupérée : " + listVille);
 
 		return listVille;
 	}
