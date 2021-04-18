@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: La Distance
+Build-Jdk: 15.0.2
+Implementation-Title: ESEO_API_REST_Server
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/ESEO_API_REST_Server
+Created-By: Maven Integration for Eclipse
+
