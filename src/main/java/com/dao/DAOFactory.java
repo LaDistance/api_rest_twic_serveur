@@ -69,7 +69,7 @@ public class DAOFactory {
 
     
     public static Connection getConnection() throws SQLException{
-    	return DriverManager.getConnection("jdbc:mysql://localhost:3306/api_rest_twic", "root", "");
+    	return DriverManager.getConnection("jdbc:mysql://localhost:3306/api_rest_twic", "api_rest", "YUFaUyNPjHxP7cA");
     }
 
     /*
