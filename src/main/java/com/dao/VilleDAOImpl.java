@@ -164,8 +164,8 @@ public class VilleDAOImpl implements VilleDAO {
         try {
             connexion = DAOFactory.getConnection();
             preparedStatement = initialisationRequetePreparee( connexion, SQL_SET_NOM, true,
-            		codeInsee,
-            		nom);
+            		nom,
+            		codeInsee);
             int statut = preparedStatement.executeUpdate();
             if ( statut == 0 ) {
                 throw new DAOException( "Échec de l'update de la ville, aucune ligne modifiée dans la table." );
@@ -205,8 +205,8 @@ public class VilleDAOImpl implements VilleDAO {
         try {
             connexion = DAOFactory.getConnection();
             preparedStatement = initialisationRequetePreparee( connexion, SQL_SET_CODE_POSTAL, true,
-            		codeInsee,
-            		codePostal);
+            		
+            		codePostal, codeInsee);
             int statut = preparedStatement.executeUpdate();
             if ( statut == 0 ) {
                 throw new DAOException( "Échec de l'update de la ville, aucune ligne modifiée dans la table." );
@@ -226,8 +226,8 @@ public class VilleDAOImpl implements VilleDAO {
         try {
             connexion = DAOFactory.getConnection();
             preparedStatement = initialisationRequetePreparee( connexion, SQL_SET_LONGITUDE, true,
-            		codeInsee,
-            		longitude);
+            		
+            		longitude, codeInsee);
             int statut = preparedStatement.executeUpdate();
             if ( statut == 0 ) {
                 throw new DAOException( "Échec de l'update de la ville, aucune ligne modifiée dans la table." );
@@ -247,8 +247,8 @@ public class VilleDAOImpl implements VilleDAO {
         try {
             connexion = DAOFactory.getConnection();
             preparedStatement = initialisationRequetePreparee( connexion, SQL_SET_LATITUDE, true,
-            		codeInsee,
-            		latitude);
+            		
+            		latitude, codeInsee);
             int statut = preparedStatement.executeUpdate();
             if ( statut == 0 ) {
                 throw new DAOException( "Échec de l'update de la ville, aucune ligne modifiée dans la table." );
@@ -268,8 +268,8 @@ public class VilleDAOImpl implements VilleDAO {
         try {
             connexion = DAOFactory.getConnection();
             preparedStatement = initialisationRequetePreparee( connexion, SQL_SET_LIBELLE, true,
-            		codeInsee,
-            		libelle);
+            		
+            		libelle, codeInsee);
             int statut = preparedStatement.executeUpdate();
             if ( statut == 0 ) {
                 throw new DAOException( "Échec de l'update de la ville, aucune ligne modifiée dans la table." );
